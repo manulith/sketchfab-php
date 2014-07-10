@@ -1,0 +1,23 @@
+{
+    "name": "manulith/sketchfab-php",
+    "description": "A Laravel package for uploading 3D objects to the Sketchfab API.",
+	"keywords": ["laravel", "l4", "sketchfab"],
+	"homepage": "https://manulith.com",
+	"license": "MIT",
+    "authors": [
+        {
+            "name": "Manulith",
+            "email": "info@manulith.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Manulith\\Sketchfab\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
