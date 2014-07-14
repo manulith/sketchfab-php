@@ -1,10 +1,10 @@
-<?php namespace Manulith\Sketchfab;
+<?php namespace Manulith\SketchfabPhp;
 
 use Config;
 use GuzzleHttp;
 use GuzzleHttp\Post\PostFile;
 
-class Sketchfab
+class SketchfabPhp
 {
     public static function upload($file, $params=array())
     {

@@ -20,10 +20,10 @@ class SketchfabPhpServiceProvider extends ServiceProvider
     {
         $this->package('manulith/sketchfab-php');
 
-        // $this->app->booting(function () {
-        //     $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        //     $loader->alias('Sketchfab', 'Manulith\Sketchfab\Facades\Sketchfab');
-        // });
+        $this->app->booting(function () {
+            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+            $loader->alias('Sketchfab', 'Manulith\SketchfabPhp\Facades\SketchfabPhp');
+        });
     }
 
     /**
@@ -33,9 +33,9 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app['sketchfab-php'] = $this->app->share(function ($app) {
-        //     return new Sketchfab;
-        // });
+        $this->app['sketchfab-php'] = $this->app->share(function ($app) {
+            return new SketchfabPhp;
+        });
     }
 
     /**
