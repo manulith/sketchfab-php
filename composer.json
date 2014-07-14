@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Manulith\\Sketchfab\\": "src/"
+            "Manulith\\SketchfabPhp\\": "src/"
         }
     },
     "minimum-stability": "stable"
