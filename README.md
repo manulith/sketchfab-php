@@ -6,14 +6,14 @@ This is a Laravel package for uploading 3D objects to the Sketchfab API.
 
 1. Add `"manulith/sketchfab-php": "dev-master"` to **composer.json**.
 2. Run `composer update`
-3. Add `Manulith\Sketchfab\SketchfabServiceProvider` to the list of providers in **app/config/app.php**.
+3. Add `Manulith\SketchfabPhp\SketchfabPhpServiceProvider` to the list of providers in **app/config/app.php**.
 4. Publish your config
 
 ```
-$ php artisan config:publish manulith/sketchfab
+$ php artisan config:publish manulith/sketchfab-php
 ```
 
-Then, set your API key in `app/config/packages/manulith/sketchfab/config.php`
+Then, set your API key in `app/config/packages/manulith/sketchfab-php/config.php`
 
 ## Usage
 
