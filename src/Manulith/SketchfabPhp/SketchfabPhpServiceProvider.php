@@ -18,7 +18,9 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('manulith/sketchfab-php');
+        if (method_exists($this, 'package')) {
+            $this->package('manulith/sketchfab-php');
+        }
 
         $this->app->booting(function () {
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
