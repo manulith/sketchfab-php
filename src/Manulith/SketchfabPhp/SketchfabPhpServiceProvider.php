@@ -1,4 +1,6 @@
-<?php namespace Manulith\SketchfabPhp;
+<?php
+
+namespace Manulith\SketchfabPhp;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -9,7 +11,7 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer = true;
 
     /**
      * Bootstrap the application events.
@@ -18,7 +20,7 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('manulith/sketchfab-php');
+        $this->publishes([__DIR__ . '/../../config/config.php' => config_path('sketchfab.php')]);
 
         $this->app->booting(function () {
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
@@ -33,6 +35,8 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'sketchfab');
+
         $this->app['sketchfab-php'] = $this->app->share(function ($app) {
             return new SketchfabPhp;
         });
@@ -45,7 +49,6 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [SketchfabPhp::class];
     }
-
 }

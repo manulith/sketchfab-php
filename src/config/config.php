@@ -4,7 +4,7 @@ return array(
 
     // Get your API key here:
     // https://sketchfab.com/settings/password
-    'api_key' => 'YOUR_API_KEY',
+    'api_key' => env('YOUR_API_KEY', ''),
 
     // Default settings for embeds
     'default_settings' => [
