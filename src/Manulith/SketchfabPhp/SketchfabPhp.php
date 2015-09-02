@@ -7,27 +7,30 @@ use GuzzleHttp\Post\PostFile;
 
 class SketchfabPhp
 {
-    public static function upload($file, $params=array())
+    public static function upload($filepath, $params=array())
     {
         // Check the file is a Sketchfab-supported type
-        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $ext = strtolower(pathinfo($filepath, PATHINFO_EXTENSION));
         if (!in_array($ext, config('sketchfab.supported_formats')) ) return;
 
         $client = new GuzzleHttp\Client();
+
+        $filename = pathinfo($filepath, PATHINFO_FILENAME);
+        
         $data = array(
             'multipart' => [
                 [
-                    'name'     => 'private',
-                    'contents' => 'true'
-                ],
-                [
                     'name'     => 'file',
-                    'contents' => fopen($file, 'r'),
-                    'filename' => $file->name
-                ]
+                    'contents' => fopen($filepath, 'r'),
+                    'filename' => $filename
+                ],
             ]
         );
 
+        if (!empty($params)) {
+            array_push($data['multipart'], $params);
+        }
+        
         $response = $client->post('https://api.sketchfab.com/v2/models', $data);
 
         return $response->json();
