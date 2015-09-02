@@ -1,6 +1,7 @@
-<?php namespace Manulith\SketchfabPhp;
+<?php
 
-use Config;
+namespace Manulith\SketchfabPhp;
+
 use GuzzleHttp;
 use GuzzleHttp\Post\PostFile;
 
@@ -10,10 +11,9 @@ class SketchfabPhp
     {
         // Check the file is a Sketchfab-supported type
         $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        if (!in_array($ext, Config::get('sketchfab-php::supported_formats')) ) return;
+        if (!in_array($ext, config('sketchfab.supported_formats')) ) return;
 
         $client = new GuzzleHttp\Client();
-
         $data = array(
             'multipart' => [
                 [
@@ -53,7 +53,7 @@ class SketchfabPhp
 
     public static function embed($uid, $options=array())
     {
-        $options = array_replace(Config::get('sketchfab-php::default_settings'), $options);
+        $options = array_replace(config('sketchfab.default_settings'), $options);
         $querystring = http_build_query($options);
         $url = sprintf('https://sketchfab.com/models/%s/embed?%s', $uid, $querystring);
 

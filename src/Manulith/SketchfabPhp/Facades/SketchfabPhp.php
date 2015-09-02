@@ -1,4 +1,6 @@
-<?php namespace Manulith\SketchfabPhp\Facades;
+<?php
+
+namespace Manulith\SketchfabPhp\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,5 +10,4 @@ class SketchfabPhp extends Facade
     {
         return 'sketchfab-php';
     }
-
 }
