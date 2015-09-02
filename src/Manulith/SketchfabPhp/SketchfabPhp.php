@@ -13,13 +13,20 @@ class SketchfabPhp
         if (!in_array($ext, Config::get('sketchfab-php::supported_formats')) ) return;
 
         $client = new GuzzleHttp\Client();
+
         $data = array(
-            'body' => [
-                'token'     => Config::get('sketchfab-php::api_key'),
-                'modelFile' => new PostFile('modelFile', fopen($file, 'r')),
-            ],
+            'multipart' => [
+                [
+                    'name'     => 'private',
+                    'contents' => 'true'
+                ],
+                [
+                    'name'     => 'file',
+                    'contents' => fopen($file, 'r'),
+                    'filename' => $file->name
+                ]
+            ]
         );
-        $data['body'] += $params;
 
         $response = $client->post('https://api.sketchfab.com/v2/models', $data);
 
