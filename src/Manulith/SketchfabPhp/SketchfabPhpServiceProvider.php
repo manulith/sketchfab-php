@@ -36,11 +36,6 @@ class SketchfabPhpServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([__DIR__ . '/../../config/config.php' => config_path('sketchfab.php')]);
-
-        AliasLoader::getInstance()->alias(
-            'Sketchfab',
-            'Manulith\SketchfabPhp\Facades\SketchfabPhp'
-        );
     }
 
     /**
@@ -50,6 +45,6 @@ class SketchfabPhpServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [SketchfabPhp::class];
+        return ['sketchfab-php'];
     }
 }
