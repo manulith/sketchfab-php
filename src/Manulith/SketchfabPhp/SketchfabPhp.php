@@ -13,27 +13,26 @@ class SketchfabPhp
         $ext = strtolower(pathinfo($filepath, PATHINFO_EXTENSION));
         if (!in_array($ext, config('sketchfab.supported_formats')) ) return;
 
-        $client = new GuzzleHttp\Client();
-
         $filename = pathinfo($filepath, PATHINFO_FILENAME);
         
-        $data = array(
-            'multipart' => [
-                [
-                    'name'     => 'file',
-                    'contents' => fopen($filepath, 'r'),
-                    'filename' => $filename
-                ],
-            ]
+        $params = array(
+            "name" => $filename,
+            "modelFile" => new \CurlFile($filepath),
+            "token" => config('services.sketchfab.api_key'),
+            "private" => 1
         );
 
-        if (!empty($params)) {
-            array_push($data['multipart'], $params);
-        }
-        
-        $response = $client->post('https://api.sketchfab.com/v2/models', $data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_URL, "https://api.sketchfab.com/v2/models");
+        $result = curl_exec($ch);
 
-        return $response->json();
+        if($result === false)
+            dd(curl_error($ch));
+        else
+            return $result;
     }
 
     public static function status($uid)
